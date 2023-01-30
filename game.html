@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Pong</title>
 </head>
 
 <canvas id="gameCanvas" width="800" height="600"></canvas>
@@ -13,24 +13,33 @@
     var canvas;
     var canvasContext;
     var ballX = 50;
+    var ballSpeedX = 15;
 
     window.onload = function () {
-        console.log("hello world");
         canvas = document.getElementById('gameCanvas');
         canvasContext = canvas.getContext('2d')
-        setInterval(drawEverything, 1000)
-    }
 
+        var framesPerSecond = 30;
+        setInterval(function () {
+            moveEverything();
+            drawEverything();
+        }, 1000 / framesPerSecond);
+    }
+    function moveEverything() {
+        ballX = ballX + ballSpeedX;
+        if (ballX > 800) {
+            ballSpeedX = -ballSpeedX;
+        }
+
+    }
     function drawEverything() {
-        ballX = ballX + 20;
         canvasContext.fillStyle = 'black';
         canvasContext.fillRect(0, 0, canvas.width, canvas.height)
-        canvasContext.fillStyle = 'red';
-        canvasContext.fillRect(ballX, 200, 50, 25)
-        canvasContext.fillStyle = 'green';
-        canvasContext.fillRect(230, 230, 10, 10)
         canvasContext.fillStyle = 'white';
-        canvasContext.fillRect(300, 200, 200, 200)
+        canvasContext.fillRect(0, 200, 10, 100)
+        canvasContext.fillStyle = 'red';
+        canvasContext.fillRect(ballX, 100, 10, 10)
+
     }
 </script>
 
